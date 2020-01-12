@@ -1,0 +1,45 @@
+.compare{
+    display:inline-block;
+    width:65%;
+    padding:10px;
+}
+
+.circular{
+    width:25%;
+    display:inline-block;
+    padding:10px;
+}
+
+.alltest{
+    display:inline-block;
+    width:45%;
+    padding:10px;
+}
+tr:nth-child(even) {background-color:lightgrey;}
+
+th{
+    color:white;
+    background:greenyellow;
+    padding:5px;
+
+}
+td{
+    padding:5px;
+}
+.guide{
+    display:inline-block;
+    width:45%;
+    text-align: left;
+    padding:10px;
+}
+
+.resultcontainer{
+ background-color:yellow;
+  display:inline-block;
+    padding: 10px;
+}
+
+.resultcontainer>div{
+     border:1px solid;
+     margin:10px;
+}
