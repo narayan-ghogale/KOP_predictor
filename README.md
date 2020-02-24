@@ -6,11 +6,11 @@ Project live at : https://beproject-729e7.firebaseapp.com/
 Few snaps:  
   
 ![](screenshots/index.PNG)  
-![](screenshots/login.PNG)
-![](screenshots/register.PNG)   ![](screenshots/dashboard.PNG) 
-![](screenshots/page1.PNG)  
-![](screenshots/page2.PNG)  
-![](screenshots/page3.PNG)  
+![](screenshots/login.PNG)![](screenshots/register.PNG) 
+![](screenshots/dashboard.PNG) 
+![](screenshots/page1.PNG) 
+![](screenshots/page2.PNG) 
+![](screenshots/page3.PNG) 
 ![](screenshots/result.PNG) 
 
 
