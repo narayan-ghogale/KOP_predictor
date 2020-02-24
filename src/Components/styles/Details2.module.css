@@ -18,7 +18,7 @@
   all:unset;
   cursor:pointer;
   display: inline-block;
-  background-color:#9DB4AB;
+  background-color:#273036;
   color:white;
   width: 14%;
   height:0;
@@ -51,6 +51,7 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   }
 
+
   
 .circlered{
     all:unset;
@@ -70,7 +71,7 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   }
 
-.form {
+.detailform {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
@@ -80,7 +81,7 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-.form input {
+.detailform input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -92,7 +93,7 @@
   font-size: 14px;
 }
 
-.form select {
+.detailform select {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -104,7 +105,7 @@
   font-size: 14px;
 }
 
-.form button {
+.detailform button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
@@ -118,30 +119,37 @@
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
+.detailform button:hover,.form button:active,.form button:focus {
   background: #43A047;
 }
 
-.form .subtitle{
+.detailform .greybutton{
+  background-color: grey;
+}
+
+.detailform .greybutton:hover{
+  background-color: grey;
+}
+.detailform .subtitle{
     color: #b3b3b3;
 }
 
-.form .step1image{
+.detailform .step1image{
     margin: 5px;
 }
-.form .step1container{
+.detailform .step1container{
     margin: 5px;
 }
-.form .message {
+.detailform .message {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
-.form .message a {
+.detailform .message a {
   color: #4CAF50;
   text-decoration: none;
 }
-.form .register-form {
+.detailform .register-form {
   display: none;
 }
 .container {
@@ -182,10 +190,8 @@
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    max-width: 360px;
+    max-width: 300px;
     margin:30px;
-    border: 1px solid #999999;
-    background-color: #666666;
     color: #ffffff;
     width: 100%;
     border: 0;
@@ -194,22 +200,24 @@
     font-size: 14px;
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
-  }
+    border-radius: 5px;
+    background: #273036;
+    border: 0;
+    }
 
   .form .borderred{
-    border:1px solid #e57373
-
-    ;
+    border:1px solid #e57373;
   }
   .form .noneclass{
   }
   .submitdetailsgreen{
+    border-radius: 5px;
+    background: #4CAF50;
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
     max-width: 360px;
     margin:30px;
-    background: #4CAF50;
     width: 100%;
     border: 0;
     padding: 15px;
@@ -220,6 +228,9 @@
     cursor: pointer;
   }
 
+  .submitdetailsgreen:hover{
+    background-color: green;
+  }
 .startedbutton{
     font-family: "Roboto", sans-serif;
   text-transform: uppercase;

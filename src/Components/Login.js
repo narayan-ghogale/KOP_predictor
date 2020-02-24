@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 //import p from './login2.jpg'
 //import { Route, BrowserRouter as Router,Redirect } from 'react-router-dom'
-//import axios from 'axios';
+import axios from 'axios';
 import styles from './styles/Login.module.css';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class Login extends Component {
 
   constructor(props){
@@ -11,19 +14,9 @@ class Login extends Component {
     this.state = {email:null,password:null,message:"",success:false,link:"#",color:""}
     this.onFormchangeHandler=this.onFormchangeHandler.bind(this);
     this.onLoginHandler=this.onLoginHandler.bind(this);
-    this.checkparameter=this.checkparameter.bind(this);
 }
 
-checkparameter(e){
-    console.log("in parameter checking");
-    let email=this.state.email;
-    let password=this.state.password;
-    let name=eval("this.state"+e.target.name);
-    console.log(name);
-    if(name===null||name===""){
-        this.setState({message:name+"cannot be empty"});
-    }
-}
+
 
 onFormchangeHandler(e){
     const name=e.target.name;
@@ -42,55 +35,59 @@ onFormchangeHandler(e){
 }
 
 onLoginHandler(e){
-    console.log(this.state);
+    //console.log(this.state);
     let email=this.state.email;
     let password=this.state.password;
     let abc=112;
-    if(email==="a"&&password==="b")
+
+    //requests
+    // axios.post('http://localhost:3001/login',{email:email,password:password})
+    // .then(res=>{
+    //   console.log("worked");
+    //   console.log(res.data);
+    //   if(res.data==="success"){
+    //     var linkToClick = document.getElementById('something');
+    //     linkToClick.click();
+    //   }
+    //   else{
+    //     this.setState({
+    //       message:"either username or password incorrect"
+    //     })
+    //     console.log("failed");
+    //   }
+    // })
+
+
+    // offline testing
+    if(email==="user"&&password==="pass")
     {
       // var linkToClick = document.getElementById('something');
       // linkToClick.click();
       abc=111;
-      this.setState({
-        message:"Login Successful...Redirecting"
-      },()=>{
-        if(this.state.message="Login Successful...Redirecting")
-    {
-    var linkToClick = document.getElementById('something');
-    linkToClick.click();
-    }else{
-      console.log("failed linking");
-    }
-      });
+      toast.success("✅Login Successful, Redirecting...", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+        });
+        setTimeout(()=>{
+          var linkToClick = document.getElementById('something');
+          linkToClick.click();
+        },3000);
     }
     else{
-      this.setState({
-        message:"either username or password incorrect"
-      })
-      console.log("failed");
+      toast.error("⚠️Login Failed", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+        });
     }
-
-    //   let email=this.state.email;
-    //   let password=this.state.password;
-    //   let data="safaw";
-    //   axios.post('http://b03384b6.ngrok.io/internal/login',data)
-    //   .then(res=>{console.log("whoaa!!!!")})
-
-    //     axios.post('http://b03384b6.ngrok.io/internal/login',{email,password})
-    //     .then(res=>{
-    //         const message = res.data.success;
-    //         console.log(res);
-    //        if(message)
-    //        {
-    // var linkToClick = document.getElementById('something');
-    // linkToClick.click();
-    // }else{
-    //   console.log("failed")
-    // }})
-    //     .catch(err=>{
-    //         console.log(err);
-    //     });
-        e.preventDefault()
+   e.preventDefault()
 }
 
 
@@ -110,7 +107,18 @@ onLoginHandler(e){
             <Link id="something" to="./dashboard"></Link>
             <p className={styles.message}>Not registered? <Link to="./register">Create an Account</Link></p>
           </form>
+         
         </div>
+        <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover/>
       </div>
     );
   }

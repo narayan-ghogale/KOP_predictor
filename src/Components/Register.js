@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 //import p from './Register2.jpg'
 import { Route, BrowserRouter as Router,Redirect } from 'react-router-dom'
-//import axios from 'axios';
+import axios from 'axios';
 import styles from './styles/Login.module.css';
 class Register extends Component {
 
   constructor(props){
     super(props);
-    this.state = {name:"",email:"",password:"",cpassword:"",message:"",success:false,link:"#",name:""}
+    this.state = {name:"",email:"",password:"",cpassword:"",message:"",success:false,link:"#",name:"",msg:""}
     this.onFormchangeHandler=this.onFormchangeHandler.bind(this);
     this.onRegisterHandler=this.onRegisterHandler.bind(this);
 }
@@ -43,15 +43,20 @@ onRegisterHandler(e){
 
     if(allcorrect)
     {
-      this.setState({
-        message:"Registeration Successful...Login to continue"
-      },()=>{
-        if(this.state.message==="Registeration Successful...Login to continue")
-    {
-    }else{
-      this.setState({message:"Redirection failed.. please try again"});
-    }
-      });
+    //   this.setState({
+    //     message:"Registeration Successful...Login to continue"
+    //   },()=>{
+    //     if(this.state.message==="Registeration Successful...Login to continue")
+    // {
+    // }else{
+    //   this.setState({message:"Redirection failed.. please try again"});
+    // }
+    //   });
+    axios.post("http://localhost:3001/register",{name:this.state.name,email:this.state.email,password:this.state.password})
+    .then(res=>{
+      this.setState({message:res.data});
+    });
+
     }
     else{
       this.setState({

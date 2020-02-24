@@ -1,36 +1,24 @@
-.compare{
-    display:inline-block;
-    width:65%;
+.resultcard{
+    /* box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);    background-color: white;
+    border-radius: 5px; */
+
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+    border-radius: 10px;
     padding:10px;
+    background-color: white;
+    /* margin-right:10px; */
+    margin-top:10px;
 }
 
-.circular{
-    width:25%;
-    display:inline-block;
-    padding:10px;
-}
-
-.alltest{
-    display:inline-block;
-    width:45%;
-    padding:10px;
-}
 tr:nth-child(even) {background-color:lightgrey;}
 
 th{
     color:white;
-    background:greenyellow;
+    background:teal;
     padding:5px;
-
 }
 td{
     padding:5px;
-}
-.guide{
-    display:inline-block;
-    width:45%;
-    text-align: left;
-    padding:10px;
 }
 
 .resultcontainer{
@@ -40,6 +28,8 @@ td{
 }
 
 .resultcontainer>div{
-     border:1px solid;
+     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+     border-radius: 5px;
      margin:10px;
+     background-color: white;
 }

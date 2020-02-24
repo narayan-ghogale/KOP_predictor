@@ -5,10 +5,14 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 //import { Chart } from 'react-charts';
 import { CircularProgressbar ,buildStyles} from 'react-circular-progressbar';
-
+import {Container,Row,Col} from 'react-bootstrap'
 //import {List, ListItem} from '@material-ui/Lists';
-import styles from "./styles/Results.module.css"
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip ,Legend,RadialBarChart,RadialBar} from 'recharts';
+import styles from "./styles/Results.module.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Card} from '@material-ui/core'
+
+
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip ,Legend,RadialBarChart,RadialBar,ResponsiveContainer} from 'recharts';
 const data = [{Year: '2019', currentcurrentKL: 1,previousKL:1}, {Year:'2020',currentKL:1,previousKL:1},
 {Year:'2021',currentKL:1,previousKL:2},{Year:'2022',currentKL:2,previousKL:3},
 {Year:'2023',currentKL:2,previousKL:3}];
@@ -57,10 +61,14 @@ componentDidMount(){
 
     
     return (
-        <div className={styles.resultcontainer} style={{backgroundColor:"white"}}>
-
-            <div className={styles.compare} >
-            <LineChart width={700} height={300} data={data} margin={{ top: 25, right: 20, bottom: 25, left: 0 }}>
+        <div>
+          <h1>Result</h1>
+          <Container>
+            <Row>
+              <Col>
+              <ResponsiveContainer>
+                <div className={styles.resultcard}>
+                <LineChart  overflowY="auto" width={700} height={340} data={data} margin={{ top: 25, right: 20, bottom: 25, left: 0 }}>
                 <Line type="monotone" dataKey="currentKL" stroke="green" />
                 <Line type="monotone" dataKey="previousKL" stroke="red" />
                 <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
@@ -68,10 +76,13 @@ componentDidMount(){
                 <YAxis domain={[0,5]}/>
                 <Tooltip/>
                 <Legend/>
-            </LineChart> 
+                </LineChart> 
             </div>
+            </ResponsiveContainer>
 
-            <div className={styles.circular}>
+            </Col>
+            <Col>
+            <div className={styles.resultcard} >
             <CircularProgressbar styles={buildStyles({
           pathColor: color,
           textColor:color,
@@ -79,7 +90,10 @@ componentDidMount(){
           transition: 'stroke-dashoffset 0.0s ease 0s',
         })} value={this.state.KL} text={this.state.KL} minValue="0" maxValue="5"/>
             </div>
-            <div className={styles.alltest}>
+            </Col>
+            </Row>
+            <Row style={{marginTop:"1%"}}>
+            <Col><div className={styles.resultcard} >
             <table style={{width:"100%",maxHeight:"200px",overflowY:"scroll"}}>
             <tr>
             <th>Year</th>
@@ -97,8 +111,8 @@ componentDidMount(){
             }
            
           </table>
-            </div>
-            <div className={styles.guide}>Guide
+            </div></Col>            
+            <Col><div className={styles.resultcard}>Guide
             <p>Stage 3 OA is classified as “moderate” OA. In this stage, the cartilage between bones
                shows obvious damage, and the space between the bones begins to narrow. People with 
                stage 3 OA of the knee are likely to experience frequent pain when walking, running, 
@@ -107,7 +121,9 @@ componentDidMount(){
                 when waking up in the morning. Joint swelling may be present after extended periods 
                 of motion, as well.
             </p>
-            </div>
+            </div></Col>
+            </Row>
+          </Container>
             </div>
     );
   }

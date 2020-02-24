@@ -1,0 +1,39 @@
+.profilecolumn{
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    border-radius: 8px;
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
+    border-radius: 10px;
+    text-align: left;
+    font-family: "Nunito Sans", sans-serif;
+}
+
+.changepassbutton{
+    font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #42a5f5;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.changepassbutton:hover{
+    background:#0099ff;
+}
+body{
+
+  /* background-image: url('./images/background.png'); */
+/* background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
+background: linear-gradient(to right, #E2E2E2, #C9D6FF); */
+background-image:url('./images/banner_bg.png');
+  
+}

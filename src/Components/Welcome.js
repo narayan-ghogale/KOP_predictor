@@ -25,7 +25,7 @@ class Welcome extends Component {
               <Link to="./login"><button className={styles.startedbutton} >Get started</button></Link>
               </p>
               </div>
-            </div>
+              </div>
         </div>
     );
   }

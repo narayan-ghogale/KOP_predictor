@@ -2,7 +2,7 @@
     font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: #42a5f5;
   width: 50%;
   border: 0;
   padding: 15px;
@@ -11,18 +11,21 @@
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  border-radius: 5px;
 }
-
+.startedbutton:hover{
+    background:#0099ff;
+}
 .splashcontainer {
     background: #1f8dd6;
     z-index: 1;
+    
+    position: relative;
+    background: #09F;
+    color: #FFF;
+    text-align: center;
     overflow: hidden;
-    /* The following styles are required for the "scroll-over" effect */
-    width: 100%;
-    height: 88%;
-    top: 0;
-    left: 0;
-    position: fixed !important;
+    height:1000px;
 }
 
 .splash {
@@ -45,12 +48,14 @@
     padding: 1em 1.6em;
     font-weight: 100;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     line-height: 1em;
+    border: 1px solid #42a5f5;
+
 }
 
 .splashsubhead {
-    color: white;
+    color: black;
     letter-spacing: 0.05em;
     opacity: 0.8;
 }

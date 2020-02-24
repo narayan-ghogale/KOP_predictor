@@ -7,6 +7,7 @@ import Welcome from './Components/Welcome';
 import Details from './Components/Details2';
 import Dashboard from './Components/Dashboard';
 import Results from './Components/Results';
+import Profile from './Components/Profile';
 import { Route, Link, BrowserRouter as Router,Switch } from 'react-router-dom'
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/dashboard" component={Dashboard}/>
         <Route path="/details" component={Details}/>
         <Route path="/results" component={Results}/>
+        <Route path="/profile" component={Profile}/>
       </Switch>
       </Router>
       </div>  
