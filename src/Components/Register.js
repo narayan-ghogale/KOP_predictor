@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { Route, BrowserRouter as Router,Redirect } from 'react-router-dom'
 import axios from 'axios';
 import styles from './styles/Login.module.css';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+let serverurl1='https://cryptic-eyrie-22433.herokuapp.com'
+let serverurl2='https://localhost:3001'
 class Register extends Component {
 
   constructor(props){
@@ -20,10 +24,8 @@ onFormchangeHandler(e){
         [name]:value
     },()=>{
         console.log(this.state);
-        if(this.state.password!==this.state.cpassword){
-          this.setState({message:"passwords dont match"});
-        }else{
-          this.setState({message:""});
+        if(value==null||value===""){
+          toast.error(name+" should not be empty");
         }
     })
 
@@ -36,54 +38,25 @@ onRegisterHandler(e){
     let password=this.state.password;
     //if registration successful
 
+    
     //checkfortype
     let allcorrect=true;
     if(this.state.email===""||this.state.password===""||this.state.password!==this.state.cpassword||this.state.name==="")
-    {allcorrect=false};
+    {allcorrect=false
+      if(this.state.password!==this.state.cpassword)
+      toast.error("passwords dont match",{position:"top-right"});
+      else
+        toast.error("invalid entries");
+    }
 
     if(allcorrect)
     {
-    //   this.setState({
-    //     message:"Registeration Successful...Login to continue"
-    //   },()=>{
-    //     if(this.state.message==="Registeration Successful...Login to continue")
-    // {
-    // }else{
-    //   this.setState({message:"Redirection failed.. please try again"});
-    // }
-    //   });
-    axios.post("http://localhost:3001/register",{name:this.state.name,email:this.state.email,password:this.state.password})
+    axios.post(serverurl1+"/register",{name:this.state.name,email:this.state.email,password:this.state.password})
     .then(res=>{
       this.setState({message:res.data});
+      toast.success(res.data);
     });
-
     }
-    else{
-      this.setState({
-        message:"Please check details"
-      })
-      console.log("failed");
-    }
-
-    //   let email=this.state.email;
-    //   let password=this.state.password;
-    //   let data="safaw";
-    //   axios.post('http://b03384b6.ngrok.io/internal/Register',data)
-    //   .then(res=>{console.log("whoaa!!!!")})
-
-    //     axios.post('http://b03384b6.ngrok.io/internal/Register',{email,password})
-    //     .then(res=>{
-    //         const message = res.data.success;
-    //         console.log(res);
-    //        if(message)
-    //        {
-   
-    // }else{
-    //   console.log("failed")
-    // }})
-    //     .catch(err=>{
-    //         console.log(err);
-    //     });
         e.preventDefault()
 }
 
@@ -94,6 +67,7 @@ onRegisterHandler(e){
 
     let message=<div>{this.state.message}</div>
     return (
+        <div>
         <div className={styles.login_page}>
         <div className={styles.form}>
           <form>
@@ -106,6 +80,17 @@ onRegisterHandler(e){
             <p className={styles.message}>Already have an account? <Link to="./login">Login here</Link></p>
           </form>
         </div>
+      </div>
+      <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover/>
       </div>
     );
   }

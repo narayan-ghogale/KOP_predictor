@@ -129,6 +129,7 @@
 
 .detailform .greybutton:hover{
   background-color: grey;
+  cursor: default;
 }
 .detailform .subtitle{
     color: #b3b3b3;

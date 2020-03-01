@@ -35,5 +35,6 @@ body{
 /* background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
 background: linear-gradient(to right, #E2E2E2, #C9D6FF); */
 background-image:url('./images/banner_bg.png');
+/* background-size:contain; */
   
 }

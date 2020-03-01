@@ -7,6 +7,7 @@ import axios from 'axios';
 import Cropper from 'react-easy-crop'
 import ReactCrop from'react-image-crop'
 import {storage} from './firebase'
+import store from 'store'
 /*
 
         <button style={{all:"unset",position:"absolute",top:"-10px",right:"-10px"}}>X</button>
@@ -18,6 +19,9 @@ import styles from './styles/Details2.module.css';
 import {Link, Switch} from 'react-router-dom';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+let serverurl1='https://cryptic-eyrie-22433.herokuapp.com'
+let serverurl2='http://localhost:3001'
 
 function allTrue(obj)
 {
@@ -164,42 +168,64 @@ class Details2 extends Component {
 
 onSubmitDetails(e){
 
-    if(this.state.colormarkers.step1==="green"&&this.state.colormarkers.step2==="green"&&this.state.colormarkers.step3==="green")
-    {
-    let thisdetails={personal:{age:this.state.age,bmi:this.state.bmi,gender:this.state.gender},
-    medical:{injury:this.state.injury,surgery:this.state.surgery,womac:this.state.womac,currentKnownKL:this.state.currentKnownKL}
-    }
-    console.log("starting image upload");
-    let imageid="";
-    axios.post("http://localhost:3001/imageupload")
-    .then(res=>{
-        imageid=res.data.thisid;
-        console.log(imageid);
+    
+    // console.log(this.state.src)
+    // const data = new FormData() 
+    // console.log(this.state.selectedimages[0])
+    // data.append('file', this.state.selectedimages[0])
+    // axios.post('http://localhost:3001/uploadf',data)
+    // .then(
+    //     res=>{console.log(res)}
+    // )
 
-        let image=this.state.images[0].image;
-        var blob = new Blob([image], { type: "image/jpeg" });
-        //console.log(this.state.croppedImageUrl);
-        storage.ref(`${imageid}`).put(blob)
-        .then(snapshot=>{
-        console.log(snapshot);
-        thisdetails.imageid=imageid;
+    const data = new FormData() 
+    // console.log(this.state.selectedimages[0])
+    console.log(this.state.croppedImage);
+    data.append('file', this.state.croppedImage)
+    axios.post('http://localhost:5000/fileupload',data)
+    .then(
+        res=>{console.log(res)
+        this.setState({predictedKL:res.data});
+        alert(res.data);
+        store.set('predictedKL',res.data);
+        let pkl=res.data;
+        console.log(res.data);
+        console.log(pkl);
+        console.log(store.get('predictedKL'))
+        // if(this.state.colormarkers.step1==="green"&&this.state.colormarkers.step2==="green"&&this.state.colormarkers.step3==="green")
+                if(true){
+                    let thisdetails={email:store.get('email'),personal:{age:this.state.age,bmi:this.state.bmi,gender:this.state.gender},
+                    medical:{injury:this.state.injury,surgery:this.state.surgery,womac:this.state.womac,currentKnownKL:this.state.currentKnownKL}
+                    }
+                    
+                    let testdetails={
+                        email:store.get('email'),
+                        currentkl:pkl.toString(),
+                        currentime:new Date().toLocaleDateString()
+                    }
+                        console.log("sending whole data");
+                        axios.post(serverurl1+"/adddetails",{details:thisdetails}).
+                        then(res1=>{
+                            toast.info(res1.data);
+                                axios.post(serverurl1+"/addtest",{details:testdetails})
+                                .then(res3=>{
+                                    toast.info(res3.data);
+                                })
+                        });
+                    }
+                    else{
+                        this.setState({message:"Please Check all details"});
+                    }
+                
 
-            
-        console.log("sending whole data");
-        axios.post("http://localhost:3001/adddetails",{details:thisdetails}).
-        then(res=>{
-            this.setState({message:res.data});
-        });
-        this.setState({
-            message:"successfully saved, Redirecting..."
-        })
-    });
-    })
-    }
-    else{
-        this.setState({message:"Please Check all details"});
-    }
+        }
+    )
 
+
+
+
+    
+    
     e.preventDefault();
 }
 
@@ -233,14 +259,57 @@ onSubmitDetails(e){
 
   async makeClientCrop(crop) {
     if (this.imageRef && crop.width && crop.height) {
-      const croppedImageUrl = await this.getCroppedImg(
+      const {croppedImageUrl,croppedImage} = await this.getCroppedImg(
         this.imageRef,
         crop,
         'newFile.jpeg'
       );
-      this.setState({ croppedImageUrl });
+
+    //   const croppedImage = await this.getCroppedImg2(
+    //     this.imageRef,
+    //     crop,
+    //     'newFile2.jpeg'
+    //   );
+
+      this.setState({ croppedImageUrl ,croppedImage});
       console.log(croppedImageUrl);
     }
+  }
+
+  getCroppedImg2(image, crop, fileName) {
+    const canvas = document.createElement('canvas');
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) {
+          //reject(new Error('Canvas is empty'));
+          console.error('Canvas is empty');
+          return;
+        }
+        blob.name = fileName;
+        window.URL.revokeObjectURL(this.fileUrl);
+
+        this.fileUrl = window.URL.createObjectURL(blob);
+        resolve(blob);
+      }, 'image/jpeg');
+    });
   }
 
   getCroppedImg(image, crop, fileName) {
@@ -272,8 +341,9 @@ onSubmitDetails(e){
         }
         blob.name = fileName;
         window.URL.revokeObjectURL(this.fileUrl);
+
         this.fileUrl = window.URL.createObjectURL(blob);
-        resolve(this.fileUrl);
+        resolve({croppedImageUrl:this.fileUrl,croppedImage:blob});
       }, 'image/jpeg');
     });
   }
@@ -393,6 +463,7 @@ onFormchangeHandler(e){
     
     const name=e.target.name;
     const value=e.target.value;
+    store.set('name',name);
     //console.log(name);
     //console.log(sname);
     if(value===null||value===""){
@@ -440,7 +511,35 @@ onFormchangeHandler(e){
                 })
             }
             }
-        
+            
+            if(name=="womac"&&(this.state.womac<0||this.state.womac>240||isNaN(this.state.womac))){
+                toast.error("Womac should be between 0 to 240", {
+                    position: "top-right"
+                    });    
+            }
+
+            if(name=="currentKnownKL"&&(this.state.currentKnownKL<0||this.state.currentKnownKL>5||isNaN(this.state.womac))){
+                toast.error("KL should be between 0 to 5", {
+                    position: "top-right"
+                    });    
+            }
+
+            if(name=="age"&&(isNaN(this.state.age)||this.state.age<0)){
+                toast.error("Age must be a positive number", {
+                    position: "top-right"
+                    });    
+            }
+            if(name=="height"&&(isNaN(this.state.height)||this.state.height<0)){
+                toast.error("Height must be a positive number", {
+                    position: "top-right"
+                    });    
+            }
+            if(name=="weight"&&(isNaN(this.state.weight)||this.state.weight<0)){
+                toast.error("Weight must be a positive number", {
+                    position: "top-right"
+                    });    
+            }
+
             if(this.state.v3){
             if(this.state.injury==="none"||this.state.surgery==="none"||isNaN(this.state.womac)
             ||(this.state.womac!==null&&this.state.womac>240)||(this.state.currentKnownKL<0)||this.state.currentKnownKL>5||isNaN(this.state.currentKnownKL)){
@@ -574,8 +673,10 @@ e.preventDefault();
         <button onClick={this.onpreviousHandler} className={buttoncolorprev} >Previous</button>
         <button onClick={this.onnextHandler} className={buttoncolornext}>Next</button>
         </form>
+        <div style={{alignItems:"center",alignContent:"center"}}>
         <button className={submitstyle} onClick={this.onSubmitDetails}>Submit</button>
         <Link to="./results"><button className={submitstyle}>Go</button></Link>
+        </div>
         <label style={{display:"block"}}>{this.state.message}</label>
         <ToastContainer
             position="top-right"

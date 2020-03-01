@@ -10,6 +10,7 @@ import user from './styles/images/user3.svg'
 import team from './styles/images/team.svg'
 import resources from './styles/images/resources.svg'
 import {Container,Row,Col} from 'react-bootstrap'
+import store from 'store';
 class Dashboard extends Component {
   constructor(props){
     super(props);
@@ -23,7 +24,7 @@ onLogout(e){
   render() {
     return (
         <div style={{textAlign:"center",alignItems:"center"}}>
-            <h1 textAlign="center">What do you want to Do?</h1>
+            <div><h1   textAlign="center">What do you want to Do? {store.get('email')}</h1></div>
             <Container className={styles.dashboardcontainer}>
               <Row>
                     <Col>

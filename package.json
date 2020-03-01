@@ -25,7 +25,8 @@
     "react-scripts": "3.3.0",
     "react-scrollable-list": "^1.2.0",
     "react-toastify": "^5.5.0",
-    "recharts": "^2.0.0-beta.1"
+    "recharts": "^2.0.0-beta.1",
+    "store": "^2.0.12"
   },
   "scripts": {
     "start": "react-scripts start",

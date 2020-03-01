@@ -8,6 +8,7 @@
     background-color: white;
     /* margin-right:10px; */
     margin-top:10px;
+    height: 100%;
 }
 
 tr:nth-child(even) {background-color:lightgrey;}
@@ -19,6 +20,20 @@ th{
 }
 td{
     padding:5px;
+}
+
+Row {
+  display: flex;
+  flex-wrap: wrap;
+}
+Col {
+  display: flex;
+  flex-direction: column;
+  margin-top:20px;
+}
+
+col{
+  margin-top: 20px;
 }
 
 .resultcontainer{
